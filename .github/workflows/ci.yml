@@ -1,0 +1,21 @@
+name: CI
+on: [push, release]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - run: sudo apt install -y cmake g++
+    - run: mkdir build && cd build && cmake .. && make
+    - run: |
+        mkdir -p deb_package/DEBIAN deb_package/usr/local/bin
+        cp build/* deb_package/usr/local/bin/
+        echo "Package: rk2" > deb_package/DEBIAN/control
+        echo "Version: 1.0" >> deb_package/DEBIAN/control
+        echo "Architecture: amd64" >> deb_package/DEBIAN/control
+        dpkg-deb --build deb_package rk2.deb
+        mkdir Release && mv rk2.deb Release/
+    - uses: actions/upload-artifact@v4
+      with:
+        name: deb
+        path: Release/
