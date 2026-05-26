@@ -9,7 +9,7 @@ jobs:
     - run: mkdir build && cd build && cmake .. && make
     - run: |
         mkdir -p deb_package/DEBIAN deb_package/usr/local/bin
-        cp build/* deb_package/usr/local/bin/
+        cp build/munition build/hamburger deb_package/usr/local/bin/
         echo "Package: rk2" > deb_package/DEBIAN/control
         echo "Version: 1.0" >> deb_package/DEBIAN/control
         echo "Architecture: amd64" >> deb_package/DEBIAN/control
