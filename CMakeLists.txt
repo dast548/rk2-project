@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.10)
+project(RK2)
+set(CMAKE_CXX_STANDARD 14)
+add_executable(munition src/munition.cpp)
+add_executable(hamburger src/hamburger.cpp)
